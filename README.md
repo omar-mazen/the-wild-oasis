@@ -74,8 +74,6 @@ The project follows a modular architecture and prioritizes maintainability, scal
 - Supabase Auth
 - Supabase Storage
 
----
-
 ## Project Structure
 
 ```
