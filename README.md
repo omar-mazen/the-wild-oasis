@@ -1,4 +1,5 @@
 # Wild Oasis – Hotel Management Dashboard
+![Home](./screenshots/home.png)
 
 **Wild Oasis** is a full-stack dashboard application designed to manage hotel operations efficiently and visually. It provides tools to monitor performance metrics, manage bookings, maintain cabin information, handle user accounts, and adjust hotel-wide settings.
 
