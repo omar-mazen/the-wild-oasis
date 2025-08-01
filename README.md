@@ -115,7 +115,6 @@ Authenticated users can update their personal information including name, avatar
 
 Hotel settings can be adjusted including night limits, guest capacity, and breakfast pricing. Supports theme switching between light and dark modes.
 
----
 
 ## Installation
 
@@ -127,7 +126,6 @@ cd wild-oasis
 npm install
 ```
 
----
 
 ## Usage
 
