@@ -3,7 +3,6 @@ import Header from "./Header";
 import Sidebar from "./Sidebar";
 import styled from "styled-components";
 const isProduction = import.meta.env.VITE_IS_PRODUCTION == "true";
-console.log(import.meta.env.VITE_IS_PRODUCTION);
 const StyledAppLayout = styled.div`
   display: grid;
   grid-template-columns: 26rem 1fr;
