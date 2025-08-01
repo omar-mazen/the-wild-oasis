@@ -18,12 +18,14 @@ export async function getCurrentUser() {
   return data?.user;
 }
 export async function signUp({ email, password, fullName, options }) {
+  const session = await supabase.auth.getSession();
   let { data, error } = await supabase.auth.signUp({
     email,
     password,
     fullName,
     options,
   });
+  await supabase.auth.setSession(session.data.session);
   if (error) throw new Error(error.message);
   return data;
 }

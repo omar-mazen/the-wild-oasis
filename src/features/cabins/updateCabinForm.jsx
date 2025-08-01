@@ -97,7 +97,7 @@ function UpdateCabinForm({ cabin, onClose }) {
         error={errors?.description?.message}
       >
         <Textarea
-          type="number"
+          type="text"
           id="description"
           defaultValue=""
           {...register("description", { required: "This field is required" })}

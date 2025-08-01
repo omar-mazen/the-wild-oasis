@@ -15,6 +15,7 @@ function SignupForm() {
   } = useForm();
   const { signup, isLoading } = useSignUp();
   function onSubmit(data) {
+    console.log(data);
     signup(
       {
         email: data.email,

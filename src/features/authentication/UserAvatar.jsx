@@ -13,7 +13,8 @@ const StyledUserAvatar = styled.div`
 const Avatar = styled.img`
   display: block;
   width: 4rem;
-  width: 3.6rem;
+  width: 4rem;
+  overflow: hidden;
   aspect-ratio: 1;
   object-fit: cover;
   object-position: center;
