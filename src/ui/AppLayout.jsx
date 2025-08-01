@@ -47,7 +47,7 @@ export default function AppLayout() {
             <a
               target="_blank"
               rel="noreferrer"
-              href="https://youtu.be/0QI5AjbdFws"
+              href="https://vimeo.com/1106615936"
             >
               🔗
               <span style={{ textDecoration: "underline" }}>
