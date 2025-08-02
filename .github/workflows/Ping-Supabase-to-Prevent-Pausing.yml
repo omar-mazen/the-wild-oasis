@@ -2,8 +2,8 @@ name: Ping Supabase to Prevent Pausing
 
 on:
   schedule:
-    - cron: '0 9 * * 1,4' # Runs at 9:00 AM UTC every Monday and Thursday
-  workflow_dispatch: # Allows manual triggering from the GitHub UI
+    - cron: '0 21 * * *' 
+  workflow_dispatch: 
 
 jobs:
   ping:
@@ -33,21 +33,10 @@ jobs:
           node -e "
           (async () => {
             try {
-              // Import Supabase client
               const { createClient } = require('@supabase/supabase-js');
               const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_KEY);
-
-              // Ping Supabase by querying a table (e.g., 'songs')
               const { data, error } = await supabase.from('cabins').select('*').limit(10);
-
-              // Handle errors
-              if (error) throw error;
-
-              // Log success
-              console.log('Ping successful:', data);
             } catch (err) {
-              // Log and exit with error
-              console.error('Error pinging Supabase:', err.message);
               process.exit(1);
             }
           })();
