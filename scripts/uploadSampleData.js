@@ -1,9 +1,9 @@
-const { createClient } = require('@supabase/supabase-js');
-const { isFuture, isPast, isToday } = require('date-fns');
-const { subtractDates } = require('../src/utils/helpers');
-const { bookings } = require('../src/data/data-bookings');
-const { cabins } = require('../src/data/data-cabins');
-const { guests } = require('../src/data/data-guests');
+import { createClient } from '@supabase/supabase-js';
+import { isFuture, isPast, isToday } from 'date-fns';
+import { subtractDates } from '../src/utils/helpers.js';
+import { bookings } from '../src/data/data-bookings.js';
+import { cabins } from '../src/data/data-cabins.js';
+import { guests } from '../src/data/data-guests.js';
 
 const supabaseUrl = secrets.NEXT_PUBLIC.SUPABASE_URL;
 const supabaseKey = secrets.NEXT_PUBLIC.SUPABASE_KEY;
