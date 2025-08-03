@@ -527,14 +527,27 @@ async function createGuests() {
 }
 
 async function createBookings() {
-  const { data: guestsIds } = await supabase.from("guests").select("id").order("id");
-  const { data: cabinsIds } = await supabase.from("cabins").select("id").order("id");
+  const { data: guestsIds, error: guestsError } = await supabase
+    .from("guests")
+    .select("id")
+    .order("id");
+
+  const { data: cabinsIds, error: cabinsError } = await supabase
+    .from("cabins")
+    .select("id,regularPrice,discount")
+    .order("id");
+
+  if (guestsError || cabinsError) {
+    throw new Error("Failed to fetch guests or cabins");
+  }
 
   const allGuestIds = guestsIds.map((g) => g.id);
-  const allCabinIds = cabinsIds.map((c) => c.id);
+  const allCabins = cabinsIds; // now includes price info
 
   const finalBookings = bookings.map((booking) => {
-    const cabin = cabins.at(booking.cabinId - 1);
+    const cabin = allCabins.at(booking.cabinId - 1);
+    if (!cabin) throw new Error(`Cabin with index ${booking.cabinId - 1} not found`);
+
     const numNights = subtractDates(booking.endDate, booking.startDate);
     const cabinPrice = numNights * (cabin.regularPrice - cabin.discount);
     const extrasPrice = booking.hasBreakfast ? numNights * 15 * booking.numGuests : 0;
@@ -559,7 +572,7 @@ async function createBookings() {
       extrasPrice,
       totalPrice,
       guestId: allGuestIds.at(booking.guestId - 1),
-      cabinId: allCabinIds.at(booking.cabinId - 1),
+      cabinId: allCabins.at(booking.cabinId - 1)?.id,
       status,
     };
   });
@@ -567,6 +580,7 @@ async function createBookings() {
   const { error } = await supabase.from("bookings").insert(finalBookings);
   if (error) throw error;
 }
+
 
 (async () => {
   try {
