@@ -1,43 +1,29 @@
-name: Ping Supabase to Prevent Pausing
+name: Upload Sample Data to Supabase
 
 on:
   schedule:
-    - cron: '0 21 * * *' 
-  workflow_dispatch: 
+    - cron: '0 21 * * *'  # Runs every day at 9 PM UTC
+  workflow_dispatch:
 
 jobs:
-  ping:
+  upload-data:
     runs-on: ubuntu-latest
 
     steps:
-      # Step 1: Checkout the repository
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      # Step 2: Set up Node.js
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '22.18.0' # Use Node.js 18
+          node-version: '18'
 
-      # Step 3: Install Supabase Client
-      - name: Install Supabase Client
-        run: npm install @supabase/supabase-js --force
-
-      # Step 4: Ping Supabase
-      - name: Ping Supabase
-        env:
-          SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }} # Supabase project URL
-          SUPABASE_KEY: ${{ secrets.NEXT_SERVICE_ROLE_KEY }} # Supabase service role key
+      - name: Install dependencies
         run: |
-          node -e "
-          (async () => {
-            try {
-              const { createClient } = require('@supabase/supabase-js');
-              const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_KEY);
-              const { data, error } = await supabase.from('cabins').select('*').limit(10);
-            } catch (err) {
-              process.exit(1);
-            }
-          })();
-          "
+          npm install --force
+
+      - name: Upload Sample Data to Supabase
+        env:
+          SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+          SUPABASE_KEY: ${{ secrets.NEXT_SERVICE_ROLE_KEY }}
+        run: node scripts/uploadSampleData.js
